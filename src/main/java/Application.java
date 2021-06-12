@@ -9,51 +9,20 @@ import java.util.TimerTask;
 
 public class Application {
 
-    public Application() {
-    }
+    private int updateLatency = 0;
+    private int size = 10;
+    OrderModel buyOrderModel = new OrderModel(size, model -> model.descendingKeySet().iterator());
+    OrderModel sellOrderModel = new OrderModel(size, model -> model.keySet().iterator());
+    OrderBookFrame ui = new OrderBookFrame(size);
 
-    public static void main(String[] args) {
-        int updateLatency = 0;
-        int size = 10;
-        String productId = args[0];
-        OrderModel buyOrderModel = new OrderModel(size, model -> model.descendingKeySet().iterator());
-        OrderModel sellOrderModel = new OrderModel(size, model -> model.keySet().iterator());
-        OrderBookFrame ui = new OrderBookFrame(size);
 
-        Connection connection = new Connection(productId, new Connection.Events() {
-            @Override
-            public void onSnapshot(Snapshot snapshotEvent) {
-                snapshotEvent.bids().stream().forEach(buyOrderModel::updateOrders);
-                snapshotEvent.asks().stream().forEach(sellOrderModel::updateOrders);
-                if(updateLatency == 0) {
-                    ui.refresh(buyOrderModel,sellOrderModel);
-                }
-            }
+    public Application(String productId) {
 
-            @Override
-            public void onL2Update(L2Update l2UpdateEvent) {
-                l2UpdateEvent.bids().stream().forEach(buyOrderModel::updateOrders);
-                l2UpdateEvent.asks().stream().forEach(sellOrderModel::updateOrders);
-                if(updateLatency == 0) {
-                    ui.refresh(buyOrderModel,sellOrderModel);
-                }
-            }
+        Controller controller = new Controller(updateLatency, buyOrderModel, sellOrderModel, ui);
+        Connection connection = new Connection(productId, controller);
 
-            @Override
-            public void onSubscribed(Subscriptions subscriptionsEvent) {
 
-            }
 
-            @Override
-            public void onReadError(Throwable error) {
-
-            }
-
-            @Override
-            public void onTransportError(Throwable error) {
-
-            }
-        });
         new Thread(connection).start();
         if(updateLatency > 0) {
             Timer refresher = new Timer();
@@ -64,6 +33,11 @@ public class Application {
                 }
             }, updateLatency, updateLatency);
         }
+    }
+
+    public static void main(String[] args) {
+
+        new Application(args[0]);
     }
 
 }

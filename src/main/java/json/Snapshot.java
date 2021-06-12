@@ -13,7 +13,7 @@ public class Snapshot extends Event {
     private final List<Ask> asks;
     private final List<Bid> bids;
 
-    protected Snapshot(String productId, List<Ask> asks, List<Bid> bids) {
+    public Snapshot(String productId, List<Ask> asks, List<Bid> bids) {
         super(Event.EventType.snapshot);
         this.productId = productId;
         this.asks = asks;

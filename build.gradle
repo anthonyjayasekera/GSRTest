@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group 'anthony.jayasekera'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    compile group: 'javax.websocket', name: 'javax.websocket-api', version: '1.1'
+    compile group: 'org.glassfish.tyrus.bundles', name: 'tyrus-standalone-client', version: '1.9'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.1'
+    compile group: 'org.springframework', name: 'spring-websocket', version: '5.2.2.RELEASE'
+    compile group: 'org.springframework', name: 'spring-messaging', version: '5.2.2.RELEASE'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.30'
+    implementation 'org.apache.logging.log4j:log4j-api:2.13.3'
+    implementation 'org.apache.logging.log4j:log4j-core:2.13.3'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

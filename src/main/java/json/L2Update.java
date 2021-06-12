@@ -30,11 +30,11 @@ public class L2Update extends Event {
     }
 
     public List<Bid> bids() {
-        return changes().stream().filter(Order::isBid).map(Order::toBid).flatMap(Optional::stream).collect(toList());
+        return changes().stream().filter(Order::isBid).map(Order::toBid).map(Optional::get).collect(toList());
     }
 
     public List<Ask> asks() {
-        return changes().stream().filter(Order::isAsk).map(Order::toAsk).flatMap(Optional::stream).collect(toList());
+        return changes().stream().filter(Order::isAsk).map(Order::toAsk).map(Optional::get).collect(toList());
     }
 
     public static class Deserializer implements JsonDeserializer<L2Update> {

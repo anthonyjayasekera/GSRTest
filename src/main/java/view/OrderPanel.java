@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+import static javax.swing.BorderFactory.createEtchedBorder;
 import static javax.swing.BorderFactory.createLineBorder;
 
 public abstract class OrderPanel extends JPanel {
@@ -29,7 +30,8 @@ public abstract class OrderPanel extends JPanel {
 
     private JLabel newLabel() {
         JLabel label = new JLabel();
-        label.setBackground(new Color(200,200,200));
+        label.setBackground(new Color(120,120,120));
+        label.setForeground(new Color(165, 255, 255));
         label.setOpaque(true);
         label.setBorder(new EmptyBorder(2,3,2,3));
         label.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -46,7 +48,8 @@ public abstract class OrderPanel extends JPanel {
         outer.setMinimumSize(size);
         outer.setMaximumSize(size);
         outer.setPreferredSize(size);
-        outer.setBorder(createLineBorder(Color.darkGray, 2));
+        outer.setBorder(createEtchedBorder(Color.lightGray, Color.darkGray));
+
         outer.setLayout(new BorderLayout());
         outer.add(label, BorderLayout.CENTER);
         return outer;

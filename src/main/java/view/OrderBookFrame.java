@@ -88,23 +88,6 @@ public class OrderBookFrame extends JFrame {
         setOpacity(1f);
         setVisible(true);
 
-//        java.util.Timer t = new java.util.Timer();
-//        t.schedule(new TimerTask(){
-//            @Override
-//            public void run() {
-//                SwingUtilities.invokeLater(() -> {
-//                    long now = System.currentTimeMillis();
-//                    long value = now % 1000;
-//                    int level = (int)(now % noOfLevels);
-//                    boolean isBuy = (now % 2)==0;
-//                    boolean isAmount = ((now/10) % 2)==0;
-//
-//                    OrderPanel p = (isBuy?buyOrders:sellOrders).get(level);
-//                    if(isAmount)p.setAmount(Long.toString(value));
-//                    else p.setPrice(Long.toString(value));
-//                });
-//            }
-//        }, 200, 200);
     }
 
     public void refresh(final OrderModel buyOrderModel, final OrderModel sellOrderModel) {

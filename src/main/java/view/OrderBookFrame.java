@@ -5,6 +5,9 @@ import model.OrderModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +39,14 @@ public class OrderBookFrame extends JFrame {
         panel.setBackground(new Color(120, 120, 120));
         add(panel);
 
+        panel.getActionMap().put("shutdown", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        panel.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK), "shutdown");
 
         JPanel panel1;
         panel1 = new JPanel();
@@ -68,6 +79,8 @@ public class OrderBookFrame extends JFrame {
             panel.setBackground(new Color(120, 120, 120));
             add(panel);
         }
+
+
 
         pack();
         setResizable(false);
